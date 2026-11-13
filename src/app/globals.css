@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+/*
+ * Khan Associates design tokens, in the style of pi.website:
+ * warm paper, monospace body, serif wordmark and titles, hairlines,
+ * hard offset shadows on hover, 150ms ease-out transitions.
+ */
+:root {
+  --background: 245 244 239; /* #F5F4EF paper */
+  --background-hover: 235 234 229;
+  --card: 250 250 247;
+  --foreground: 0 0 0;
+  --muted-foreground: 104 104 104; /* #686868 */
+  --divider: 229 228 220; /* #E5E4DC */
+  --rule: 192 189 173; /* #C0BDAD */
+  --border: 64 62 55; /* #403E37 */
+  --button: 217 216 211;
+  --button-foreground: 64 62 55;
+  --button-hover: 196 195 187;
+  --highlight: 251 212 91; /* #FBD45B */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@theme inline {
+  --color-background: rgb(var(--background));
+  --color-background-hover: rgb(var(--background-hover));
+  --color-card: rgb(var(--card));
+  --color-foreground: rgb(var(--foreground));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-divider: rgb(var(--divider));
+  --color-rule: rgb(var(--rule));
+  --color-border: rgb(var(--border));
+  --color-button: rgb(var(--button));
+  --color-button-foreground: rgb(var(--button-foreground));
+  --color-button-hover: rgb(var(--button-hover));
+  --color-highlight: rgb(var(--highlight));
+
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
+}
+
+html {
+  background: rgb(var(--background));
+  scroll-behavior: smooth;
+  interpolate-size: allow-keywords;
+}
+
+body {
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(var(--highlight));
+}
+
+.link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgb(var(--muted-foreground));
+  transition: text-decoration-color 150ms var(--ease);
+}
+.link:hover {
+  text-decoration-color: rgb(var(--foreground));
+}
+.link[aria-current="page"] {
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgb(var(--foreground));
+}
+
+/* Timeline: a hairline rail drawn in on load, square markers, entries that lift on hover */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgb(var(--rule));
+  transform-origin: top;
+  animation: rail-in 900ms var(--ease) both;
+}
+.timeline > li {
+  position: relative;
+}
+.timeline > li::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: rgb(var(--border));
+}
+.entry {
+  border: 1px solid transparent;
+  padding: 10px 12px;
+  transition:
+    border-color 150ms var(--ease),
+    box-shadow 150ms var(--ease),
+    transform 150ms var(--ease),
+    background-color 150ms var(--ease);
+}
+.entry.boxed {
+  border-color: rgb(var(--divider));
+  background: rgb(var(--card));
+}
+.entry:hover {
+  border-color: rgb(var(--foreground));
+  background: #fff;
+  box-shadow: 3px 3px 0 0 #000;
+  transform: translate(-1px, -1px);
+}
+
+/* Accordion on <details>; +/− marker, content height animates where supported */
+details.row > summary {
+  list-style: none;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease);
+}
+details.row > summary::-webkit-details-marker {
+  display: none;
+}
+details.row > summary .sign::before {
+  content: "+";
+}
+details.row[open] > summary .sign::before {
+  content: "−";
+}
+details.row::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 200ms var(--ease),
+    content-visibility 200ms allow-discrete;
+}
+details.row[open]::details-content {
+  block-size: auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  background: rgb(var(--button));
+  color: rgb(var(--button-foreground));
+  padding: 6px 12px;
+  box-shadow: 2px 2px 0 0 #000;
+  transition:
+    background-color 150ms var(--ease),
+    box-shadow 150ms var(--ease),
+    transform 150ms var(--ease);
+}
+.btn:hover {
+  background: rgb(var(--button-hover));
+}
+.btn:active {
+  box-shadow: 0 0 0 0 #000;
+  transform: translate(2px, 2px);
+}
+
+/* Page content settles up once on load */
+.enter {
+  animation: enter 400ms var(--ease) both;
+}
+.enter-2 {
+  animation-delay: 80ms;
+}
+.enter-3 {
+  animation-delay: 160ms;
+}
+
+@keyframes rail-in {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+/* Transform only: content stays readable even where animations never run */
+@keyframes enter {
+  from {
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--border));
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after,
+  details.row::details-content {
+    animation: none !important;
+    transition: none !important;
+  }
+}
