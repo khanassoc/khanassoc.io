@@ -33,11 +33,11 @@ resource "aws_iam_role" "site_deploy" {
 }
 
 resource "aws_iam_role_policy" "site_deploy" {
-  name = "sync-bucket-invalidate-cdn"
+  name = "deploy-site"
   role = aws_iam_role.site_deploy.id
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [
+    Statement = concat([
       {
         Effect   = "Allow"
         Action   = "s3:ListBucket"
@@ -52,12 +52,17 @@ resource "aws_iam_role_policy" "site_deploy" {
         Effect   = "Allow"
         Action   = ["kms:GenerateDataKey", "kms:Decrypt"]
         Resource = aws_kms_key.site.arn
-      },
-      {
+      }],
+      local.use_cloudfront ? [{
         Effect   = "Allow"
         Action   = "cloudfront:CreateInvalidation"
-        Resource = aws_cloudfront_distribution.site.arn
-      },
-    ]
+        Resource = aws_cloudfront_distribution.site[0].arn
+      }] : [],
+      local.use_amplify ? [{
+        Effect   = "Allow"
+        Action   = ["amplify:CreateDeployment", "amplify:StartDeployment", "amplify:GetJob"]
+        Resource = [aws_amplify_branch.main[0].arn, "${aws_amplify_branch.main[0].arn}/*"]
+      }] : [],
+    )
   })
 }

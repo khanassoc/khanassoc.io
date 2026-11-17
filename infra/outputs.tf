@@ -14,8 +14,18 @@ output "bucket" {
 }
 
 output "distribution_id" {
-  description = "GitHub repo variable SITE_DISTRIBUTION_ID."
-  value       = aws_cloudfront_distribution.site.id
+  description = "GitHub repo variable SITE_DISTRIBUTION_ID (CloudFront hosting only)."
+  value       = one(aws_cloudfront_distribution.site[*].id)
+}
+
+output "amplify_app_id" {
+  description = "GitHub repo variable AMPLIFY_APP_ID (Amplify hosting only)."
+  value       = one(aws_amplify_app.site[*].id)
+}
+
+output "amplify_dns" {
+  description = "Records Amplify asks for (Route 53 records are added in dns.tf)."
+  value       = one(aws_amplify_domain_association.site[*].sub_domain)
 }
 
 output "deploy_role_arn" {

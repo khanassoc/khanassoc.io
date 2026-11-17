@@ -28,6 +28,16 @@ variable "create_github_oidc_provider" {
   default     = true
 }
 
+variable "hosting" {
+  description = "Where the site is served from: amplify (while CloudFront is blocked for this account) or cloudfront."
+  type        = string
+  default     = "amplify"
+  validation {
+    condition     = contains(["amplify", "cloudfront"], var.hosting)
+    error_message = "hosting must be amplify or cloudfront."
+  }
+}
+
 variable "waf_rate_limit" {
   description = "Requests per 5 minutes per IP before WAF blocks."
   type        = number

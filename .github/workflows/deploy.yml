@@ -30,7 +30,26 @@ jobs:
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
           aws-region: us-east-2
+      # Amplify hosting (infra var hosting = "amplify"): set repo variable AMPLIFY_APP_ID from `terraform output`.
+      - name: Deploy to Amplify
+        if: vars.AMPLIFY_APP_ID != ''
+        env:
+          APP_ID: ${{ vars.AMPLIFY_APP_ID }}
+        run: |
+          (cd out && zip -qr ../site.zip .)
+          read -r JOB URL < <(aws amplify create-deployment --app-id "$APP_ID" --branch-name main --query '[jobId,zipUploadUrl]' --output text)
+          curl -sSf -T site.zip "$URL"
+          aws amplify start-deployment --app-id "$APP_ID" --branch-name main --job-id "$JOB" >/dev/null
+          for _ in $(seq 1 60); do
+            STATUS=$(aws amplify get-job --app-id "$APP_ID" --branch-name main --job-id "$JOB" --query job.summary.status --output text)
+            case "$STATUS" in SUCCEED) exit 0 ;; FAILED|CANCELLED) echo "Amplify job $JOB $STATUS"; exit 1 ;; esac
+            sleep 5
+          done
+          echo "Amplify job $JOB timed out"; exit 1
+      # CloudFront hosting (infra var hosting = "cloudfront"): set SITE_BUCKET and SITE_DISTRIBUTION_ID.
       - name: Upload to S3
+        if: vars.SITE_DISTRIBUTION_ID != ''
         run: aws s3 sync out/ "s3://${{ vars.SITE_BUCKET }}" --delete
       - name: Invalidate CloudFront
+        if: vars.SITE_DISTRIBUTION_ID != ''
         run: aws cloudfront create-invalidation --distribution-id "${{ vars.SITE_DISTRIBUTION_ID }}" --paths "/*"

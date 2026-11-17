@@ -4,23 +4,23 @@ resource "aws_kms_key" "site" {
   enable_key_rotation = true
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [
+    Statement = concat([
       {
         Sid       = "AccountAdmin"
         Effect    = "Allow"
         Principal = { AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" }
         Action    = "kms:*"
         Resource  = "*"
-      },
+      }], local.use_cloudfront ? [
       {
         Sid       = "CloudFrontReadsSiteObjects"
         Effect    = "Allow"
         Principal = { Service = "cloudfront.amazonaws.com" }
         Action    = "kms:Decrypt"
         Resource  = "*"
-        Condition = { StringEquals = { "AWS:SourceArn" = aws_cloudfront_distribution.site.arn } }
+        Condition = { StringEquals = { "AWS:SourceArn" = aws_cloudfront_distribution.site[0].arn } }
       },
-    ]
+    ] : [])
   })
 }
 
@@ -83,15 +83,16 @@ resource "aws_s3_bucket_policy" "site" {
   bucket = aws_s3_bucket.site.id
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [
+    Statement = concat(local.use_cloudfront ? [
       {
         Sid       = "CloudFrontOnly"
         Effect    = "Allow"
         Principal = { Service = "cloudfront.amazonaws.com" }
         Action    = "s3:GetObject"
         Resource  = "${aws_s3_bucket.site.arn}/*"
-        Condition = { StringEquals = { "AWS:SourceArn" = aws_cloudfront_distribution.site.arn } }
+        Condition = { StringEquals = { "AWS:SourceArn" = aws_cloudfront_distribution.site[0].arn } }
       },
+      ] : [], [
       {
         Sid       = "DenyInsecureTransport"
         Effect    = "Deny"
@@ -100,7 +101,7 @@ resource "aws_s3_bucket_policy" "site" {
         Resource  = [aws_s3_bucket.site.arn, "${aws_s3_bucket.site.arn}/*"]
         Condition = { Bool = { "aws:SecureTransport" = "false" } }
       },
-    ]
+    ])
   })
   depends_on = [aws_s3_bucket_public_access_block.site]
 }

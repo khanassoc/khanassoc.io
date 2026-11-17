@@ -83,6 +83,7 @@ resource "aws_cloudfront_response_headers_policy" "site" {
 }
 
 resource "aws_cloudfront_distribution" "site" {
+  count               = local.use_cloudfront ? 1 : 0
   enabled             = true
   is_ipv6_enabled     = true
   http_version        = "http2and3"
