@@ -7,8 +7,8 @@ export const firm = {
   phoneHref: "tel:+16198572878",
   address: ["2109 Striker Wy", "Celina, TX 75009"],
   hours: "7 AM – 7 PM Pacific, seven days a week",
-  // Set to the Typeform intake URL once the form exists; until then the site points people to email.
-  intakeUrl: "",
+  // Client portal sign-up (portal.khanassoc.io). Empty until it is live; the button then opens /account/.
+  accountUrl: "",
 };
 
 export const services = [
@@ -64,14 +64,14 @@ export const services = [
 
 export const steps = [
   {
-    label: "Consultation",
+    label: "Account and consultation",
     when: "Day 1",
-    body: "A short call to review last year's return and agree on scope. Pricing is set before any work starts.",
+    body: "Request a client account. Once we approve it, you pick a time for a short call to review last year's return and agree on scope. Pricing is set before any work starts.",
   },
   {
     label: "Secure upload",
     when: "Day 1–3",
-    body: "You get a private link to upload documents. Nothing is sent by email.",
+    body: "You upload documents in your account. Nothing is sent by email.",
   },
   {
     label: "Preparation and review",
