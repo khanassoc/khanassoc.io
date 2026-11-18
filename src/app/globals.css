@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
 /*
- * Khan Associates design tokens, in the style of pi.website:
- * warm paper, monospace body, serif wordmark and titles, hairlines,
- * hard offset shadows on hover, 150ms ease-out transitions.
+ * Khan Associates design tokens. Type and color follow the firm deck:
+ * Helvetica Neue for text, Cormorant Garamond italic for display, and the
+ * deck's white -> periwinkle -> navy gradient behind the header.
+ * Navy ink and light weights rather than black-on-white; soft shadows, no hard offsets.
  */
 :root {
-  --background: 245 244 239; /* #F5F4EF paper */
-  --background-hover: 235 234 229;
-  --card: 250 250 247;
-  --foreground: 0 0 0;
-  --muted-foreground: 104 104 104; /* #686868 */
-  --divider: 229 228 220; /* #E5E4DC */
-  --rule: 192 189 173; /* #C0BDAD */
-  --border: 64 62 55; /* #403E37 */
-  --button: 217 216 211;
-  --button-foreground: 64 62 55;
-  --button-hover: 196 195 187;
-  --highlight: 251 212 91; /* #FBD45B */
+  --background: 250 251 253; /* #FAFBFD */
+  --background-hover: 238 242 249;
+  --card: 255 255 255;
+  --foreground: 22 33 56; /* #162138 navy ink */
+  --muted-foreground: 102 102 102; /* #666666 (deck) */
+  --divider: 226 231 241;
+  --rule: 136 158 196; /* #889EC4 periwinkle (deck) */
+  --border: 17 61 138; /* #113D8A navy (deck) */
+  --accent: 74 134 232; /* #4A86E8 (deck) */
+  --navy: 17 61 138;
+  --periwinkle: 136 158 196;
+  --highlight: 207 219 240;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -30,14 +31,14 @@
   --color-divider: rgb(var(--divider));
   --color-rule: rgb(var(--rule));
   --color-border: rgb(var(--border));
-  --color-button: rgb(var(--button));
-  --color-button-foreground: rgb(var(--button-foreground));
-  --color-button-hover: rgb(var(--button-hover));
+  --color-accent: rgb(var(--accent));
+  --color-navy: rgb(var(--navy));
+  --color-periwinkle: rgb(var(--periwinkle));
   --color-highlight: rgb(var(--highlight));
 
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
+  /* Helvetica Neue is a system font on Apple devices (not shipped with the site); others fall back to Helvetica/Arial. */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
 }
 
 html {
@@ -49,10 +50,41 @@ html {
 body {
   background: rgb(var(--background));
   color: rgb(var(--foreground));
-  font-family: var(--font-mono);
-  font-size: 14px;
-  line-height: 20px;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 24px;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Display type: always the italic Cormorant, as in the deck. */
+.display {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
+/* Header band: the deck's gradient, navy at the top fading through periwinkle into the page. */
+.band {
+  background: linear-gradient(
+    180deg,
+    rgb(var(--navy)) 0%,
+    rgb(68 101 165) 38%,
+    rgb(var(--periwinkle)) 72%,
+    rgb(var(--background)) 100%
+  );
+  color: #fff;
+}
+.band .link {
+  text-decoration-color: rgb(255 255 255 / 0.5);
+}
+.band .link:hover,
+.band .link[aria-current="page"] {
+  text-decoration-color: #fff;
+}
+.band :focus-visible {
+  outline-color: #fff;
 }
 
 ::selection {
@@ -97,14 +129,15 @@ body {
   content: "";
   position: absolute;
   left: -27px;
-  top: 14px;
+  top: 17px;
   width: 7px;
   height: 7px;
-  border-radius: 2px;
-  background: rgb(var(--border));
+  border-radius: 50%;
+  background: rgb(var(--navy));
 }
 .entry {
   border: 1px solid transparent;
+  border-radius: 8px;
   padding: 10px 12px;
   transition:
     border-color 150ms var(--ease),
@@ -117,10 +150,10 @@ body {
   background: rgb(var(--card));
 }
 .entry:hover {
-  border-color: rgb(var(--foreground));
+  border-color: rgb(var(--periwinkle));
   background: #fff;
-  box-shadow: 3px 3px 0 0 #000;
-  transform: translate(-1px, -1px);
+  box-shadow: 0 6px 20px -8px rgb(var(--navy) / 0.35);
+  transform: translateY(-1px);
 }
 
 /* Accordion on <details>; +/− marker, content height animates where supported */
@@ -153,22 +186,25 @@ details.row[open]::details-content {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border-radius: 4px;
-  background: rgb(var(--button));
-  color: rgb(var(--button-foreground));
-  padding: 6px 12px;
-  box-shadow: 2px 2px 0 0 #000;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgb(var(--navy)) 0%, rgb(var(--accent)) 100%);
+  color: #fff;
+  font-weight: 400;
+  padding: 9px 20px;
+  box-shadow: 0 4px 14px -6px rgb(var(--navy) / 0.6);
   transition:
-    background-color 150ms var(--ease),
     box-shadow 150ms var(--ease),
-    transform 150ms var(--ease);
+    transform 150ms var(--ease),
+    filter 150ms var(--ease);
 }
 .btn:hover {
-  background: rgb(var(--button-hover));
+  filter: brightness(1.08);
+  box-shadow: 0 8px 22px -8px rgb(var(--navy) / 0.7);
+  transform: translateY(-1px);
 }
 .btn:active {
-  box-shadow: 0 0 0 0 #000;
-  transform: translate(2px, 2px);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px -4px rgb(var(--navy) / 0.6);
 }
 
 /* Page content settles up once on load */

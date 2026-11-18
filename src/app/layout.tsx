@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/newsreader";
+import "@fontsource/cormorant-garamond/400-italic.css";
+import "@fontsource/cormorant-garamond/500-italic.css";
 import "./globals.css";
 import { Shell } from "@/components/ui";
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F5F4EF",
+  themeColor: "#113D8A",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -18,7 +18,7 @@ export default function About() {
           the person who prepares and reviews your return, and the one who answers if the IRS
           writes back.
         </p>
-        <p className="font-serif text-[20px] leading-7">{firm.mission}</p>
+        <p className="display text-[28px] leading-9 text-navy">{firm.mission}</p>
       </Prose>
     </>
   );
