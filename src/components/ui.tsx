@@ -94,15 +94,15 @@ export function Row({ label, meta, children }: { label: ReactNode; meta?: ReactN
 }
 
 export function StartLink() {
-  if (firm.intakeUrl)
+  if (firm.accountUrl)
     return (
-      <a className="btn" href={firm.intakeUrl}>
-        Start as a new client →
+      <a className="btn" href={firm.accountUrl}>
+        Create your account →
       </a>
     );
   return (
-    <a className="btn" href={`mailto:${firm.email}?subject=New%20client%20consultation`}>
-      Book a consultation →
-    </a>
+    <Link className="btn" href="/account/">
+      Create your account →
+    </Link>
   );
 }
