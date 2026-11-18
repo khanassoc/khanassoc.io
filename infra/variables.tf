@@ -16,10 +16,10 @@ variable "domain" {
   default     = "khanassoc.io"
 }
 
-variable "github_repo" {
-  description = "Repository allowed to deploy the site, as owner/name."
+variable "github_oidc_subject_prefix" {
+  description = "Start of the GitHub OIDC `sub` claim. This repo uses GitHub's immutable subject (owner and repo IDs), so a renamed or re-created repo cannot assume the role. Check with: gh api repos/OWNER/REPO/actions/oidc/customization/sub"
   type        = string
-  default     = "khanassoc/khanassoc.io"
+  default     = "repo:khanassoc@331349882/khanassoc.io@1452053521"
 }
 
 variable "create_github_oidc_provider" {
