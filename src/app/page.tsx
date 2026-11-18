@@ -5,7 +5,7 @@ import { firm, services, steps } from "@/lib/firm";
 export default function Home() {
   return (
     <>
-      <p className="enter mb-6 font-serif text-[22px] leading-8">{firm.mission}</p>
+      <p className="enter mb-6 font-display text-[22px] leading-8">{firm.mission}</p>
       <Prose className="enter enter-2">
         <p>
           Khan Associates prepares returns, plans ahead, and represents individuals and small
