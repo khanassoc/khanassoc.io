@@ -74,7 +74,7 @@ body {
   text-decoration-color: rgb(var(--foreground));
 }
 
-/* Timeline: a hairline rail drawn in on load, square markers, entries that lift on hover */
+/* Timeline: a hairline rail, square markers, entries that lift on hover */
 .timeline {
   position: relative;
   padding-left: 28px;
@@ -87,8 +87,6 @@ body {
   bottom: 0;
   width: 1px;
   background: rgb(var(--rule));
-  transform-origin: top;
-  animation: rail-in 900ms var(--ease) both;
 }
 .timeline > li {
   position: relative;
@@ -169,36 +167,6 @@ details.row[open]::details-content {
 .btn:active {
   box-shadow: 0 0 0 0 #000;
   transform: translate(2px, 2px);
-}
-
-/* Page content settles up once on load */
-.enter {
-  animation: enter 400ms var(--ease) both;
-}
-.enter-2 {
-  animation-delay: 80ms;
-}
-.enter-3 {
-  animation-delay: 160ms;
-}
-
-@keyframes rail-in {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-/* Transform only: content stays readable even where animations never run */
-@keyframes enter {
-  from {
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 :focus-visible {

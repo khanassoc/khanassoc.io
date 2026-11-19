@@ -39,7 +39,7 @@ export function Shell({ children }: { children: ReactNode }) {
 }
 
 export function PageTitle({ children }: { children: ReactNode }) {
-  return <h1 className="enter mb-4 font-serif text-[30px] leading-9 tracking-[-0.01em]">{children}</h1>;
+  return <h1 className="mb-4 font-serif text-[30px] leading-9 tracking-[-0.01em]">{children}</h1>;
 }
 
 export function Prose({ children, className = "" }: { children: ReactNode; className?: string }) {

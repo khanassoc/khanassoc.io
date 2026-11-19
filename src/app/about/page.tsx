@@ -8,7 +8,7 @@ export default function About() {
   return (
     <>
       <PageTitle>About</PageTitle>
-      <Prose className="enter enter-2">
+      <Prose>
         <p>
           {firm.principal} has prepared returns and advised clients across Dallas–Fort Worth for
           more than ten years, and holds a professional tax certification.

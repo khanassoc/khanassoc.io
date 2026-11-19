@@ -8,13 +8,13 @@ export default function Services() {
   return (
     <>
       <PageTitle>Services</PageTitle>
-      <Prose className="enter enter-2">
+      <Prose>
         <p>
           Returns are $200 per filing. Planning and representation are quoted after a short
           consultation, so you know the cost before any work starts.
         </p>
       </Prose>
-      <div className="enter enter-3 mt-8 border-t border-divider">
+      <div className="mt-8 border-t border-divider">
         {services.map((s) => (
           <Row key={s.slug} label={s.name} meta={s.price}>
             <div className="space-y-2">

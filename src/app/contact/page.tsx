@@ -8,14 +8,14 @@ export default function Contact() {
   return (
     <>
       <PageTitle>Contact</PageTitle>
-      <Prose className="enter enter-2">
+      <Prose>
         <p>
           New clients start by requesting a client account. Once we approve it, you book a
           consultation time and upload documents in your account. Please don&apos;t send Social
           Security numbers or tax documents by email.
         </p>
       </Prose>
-      <dl className="enter enter-3 mt-8 grid grid-cols-[96px_1fr] gap-y-3 border-t border-divider pt-4">
+      <dl className="mt-8 grid grid-cols-[96px_1fr] gap-y-3 border-t border-divider pt-4">
         <dt className="text-muted-foreground">Email</dt>
         <dd>
           <a className="link" href={`mailto:${firm.email}`}>

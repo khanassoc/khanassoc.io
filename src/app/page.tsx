@@ -5,19 +5,19 @@ import { firm, services, steps } from "@/lib/firm";
 export default function Home() {
   return (
     <>
-      <h1 className="enter font-serif text-[34px] leading-10 tracking-[-0.01em] sm:text-[42px] sm:leading-[48px]">
+      <h1 className="font-serif text-[34px] leading-10 tracking-[-0.01em] sm:text-[42px] sm:leading-[48px]">
         Tax preparation and planning in Dallas–Fort Worth
       </h1>
-      <p className="enter enter-2 mt-3 font-serif text-[20px] italic leading-7 text-muted-foreground">
+      <p className="mt-3 font-serif text-[20px] italic leading-7 text-muted-foreground">
         {firm.mission}
       </p>
-      <p className="enter enter-2 mt-6 max-w-[56ch]">
+      <p className="mt-6 max-w-[56ch]">
         Returns are <strong className="font-semibold">$200 per filing</strong>, agreed before any
         work starts. You work directly with {firm.principal}, who has served individuals and small
         businesses across the area for over a decade. Planning and IRS representation are quoted
         after a short consultation.
       </p>
-      <div className="enter enter-3 mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
         <StartLink />
         <Link className="link" href="/services/">
           See services →
