@@ -12,28 +12,30 @@ const nav = [
 
 export function Shell({ children }: { children: ReactNode }) {
   return (
-    <div className="max-w-[720px] px-4 py-8 sm:px-12 sm:py-10">
-      <header className="mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
-        <Link href="/" className="font-serif text-[30px] leading-9 tracking-[-0.01em]">
-          {firm.name}
-        </Link>
-        <NavLinks items={nav} />
-      </header>
-      <main>{children}</main>
-      <footer className="mt-16 border-t border-divider pt-4 text-muted-foreground">
-        <p>
-          {firm.name} · {firm.address.join(", ")}
-        </p>
-        <p>
-          <a className="link" href={`mailto:${firm.email}`}>
-            {firm.email}
-          </a>{" "}
-          ·{" "}
-          <a className="link" href={firm.phoneHref}>
-            {firm.phone}
-          </a>
-        </p>
-      </footer>
+    <div className="p-4 md:p-12">
+      <div className="w-full max-w-xl">
+        <header className="mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
+          <Link href="/" className="font-serif text-[30px] leading-9 tracking-[-0.01em]">
+            {firm.name}
+          </Link>
+          <NavLinks items={nav} />
+        </header>
+        <main>{children}</main>
+        <footer className="mt-12 border-t border-divider py-6 text-muted-foreground">
+          <p>
+            {firm.name} · {firm.address.join(", ")}
+          </p>
+          <p>
+            <a className="link" href={`mailto:${firm.email}`}>
+              {firm.email}
+            </a>{" "}
+            ·{" "}
+            <a className="link" href={firm.phoneHref}>
+              {firm.phone}
+            </a>
+          </p>
+        </footer>
+      </div>
     </div>
   );
 }
