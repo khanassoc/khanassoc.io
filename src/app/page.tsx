@@ -5,12 +5,8 @@ import { firm, services, steps } from "@/lib/firm";
 export default function Home() {
   return (
     <>
-      <h1 className="font-serif text-[34px] leading-10 tracking-[-0.01em] sm:text-[42px] sm:leading-[48px]">
-        Tax preparation and planning in Dallas–Fort Worth
-      </h1>
-      <p className="mt-3 font-serif text-[20px] italic leading-7 text-muted-foreground">
-        {firm.mission}
-      </p>
+      <h1 className="sr-only">Tax preparation and planning in Dallas–Fort Worth</h1>
+      <p className="font-serif text-[22px] leading-8">{firm.mission}</p>
       <p className="mt-6 max-w-[56ch]">
         Returns are <strong className="font-semibold">$200 per filing</strong>, agreed before any
         work starts. You work directly with {firm.principal}, who has served individuals and small

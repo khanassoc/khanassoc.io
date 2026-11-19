@@ -6,6 +6,7 @@ export default function NotFound() {
     <>
       <PageTitle>Page not found</PageTitle>
       <Prose>
+        <p>That page doesn&apos;t exist.</p>
         <p>
           <Link href="/">Back to the home page →</Link>
         </p>
