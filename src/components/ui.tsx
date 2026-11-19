@@ -14,7 +14,7 @@ export function Shell({ children }: { children: ReactNode }) {
   return (
     <div className="max-w-[720px] px-4 py-8 sm:px-12 sm:py-10">
       <header className="mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
-        <Link href="/" className="font-serif text-[30px] leading-9">
+        <Link href="/" className="font-serif text-[30px] leading-9 tracking-[-0.01em]">
           {firm.name}
         </Link>
         <NavLinks items={nav} />
@@ -39,7 +39,7 @@ export function Shell({ children }: { children: ReactNode }) {
 }
 
 export function PageTitle({ children }: { children: ReactNode }) {
-  return <h1 className="enter mb-4 font-serif text-[24px] leading-8">{children}</h1>;
+  return <h1 className="enter mb-4 font-serif text-[30px] leading-9 tracking-[-0.01em]">{children}</h1>;
 }
 
 export function Prose({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -47,7 +47,7 @@ export function Prose({ children, className = "" }: { children: ReactNode; class
 }
 
 export function SectionLabel({ children }: { children: ReactNode }) {
-  return <h2 className="mb-3 mt-12 text-muted-foreground uppercase tracking-wide">{children}</h2>;
+  return <h2 className="mb-3 mt-14 text-[12px] font-medium leading-4 text-muted-foreground uppercase tracking-[0.12em]">{children}</h2>;
 }
 
 export function Timeline({ children }: { children: ReactNode }) {
@@ -69,7 +69,7 @@ export function Entry({
     <li>
       <div className={`entry ${boxed ? "boxed" : ""}`}>
         <div className="flex items-baseline justify-between gap-4">
-          <h3 className="font-bold">{title}</h3>
+          <h3 className="font-semibold">{title}</h3>
           {meta && <span className="shrink-0 text-muted-foreground">{meta}</span>}
         </div>
         <div className="mt-1 text-muted-foreground">{children}</div>
@@ -82,7 +82,7 @@ export function Row({ label, meta, children }: { label: ReactNode; meta?: ReactN
   return (
     <details className="row border-b border-divider">
       <summary className="flex items-center justify-between gap-4 py-[9px] hover:bg-background-hover">
-        <span className="font-bold">{label}</span>
+        <span className="font-semibold">{label}</span>
         <span className="flex items-center gap-4 text-muted-foreground">
           {meta}
           <span className="sign w-3 text-center" aria-hidden="true" />
@@ -93,16 +93,39 @@ export function Row({ label, meta, children }: { label: ReactNode; meta?: ReactN
   );
 }
 
+// Services side by side: name and price on one line so they compare at a glance, summary underneath.
+export function PriceList({
+  items,
+}: {
+  items: { key: string; name: ReactNode; price: ReactNode; summary: ReactNode }[];
+}) {
+  return (
+    <ul className="border-t border-divider">
+      {items.map((i) => (
+        <li key={i.key} className="border-b border-divider py-4">
+          <div className="flex items-baseline justify-between gap-x-6">
+            <h3 className="font-semibold">{i.name}</h3>
+            <span className="text-right font-medium">{i.price}</span>
+          </div>
+          <p className="mt-1 text-muted-foreground">{i.summary}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// The one call to action. Label lives here; the destination switches to the portal once firm.accountUrl is set.
 export function StartLink() {
+  const label = "Request a client account →";
   if (firm.accountUrl)
     return (
       <a className="btn" href={firm.accountUrl}>
-        Create your account →
+        {label}
       </a>
     );
   return (
     <Link className="btn" href="/account/">
-      Create your account →
+      {label}
     </Link>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/newsreader";
+import "@fontsource-variable/dm-sans";
+import "@fontsource/dm-serif-display/400.css";
+import "@fontsource/dm-serif-display/400-italic.css";
 import "./globals.css";
 import { Shell } from "@/components/ui";
 
