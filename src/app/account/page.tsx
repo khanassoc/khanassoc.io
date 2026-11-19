@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { PageTitle, Prose } from "@/components/ui";
 import { firm } from "@/lib/firm";
 
-export const metadata: Metadata = { title: "Create your account" };
+export const metadata: Metadata = { title: "Request a client account" };
 
 // Placeholder until portal sign-up is live; then firm.accountUrl points the button straight at the portal.
 export default function Account() {
   return (
     <>
-      <PageTitle>Create your account</PageTitle>
+      <PageTitle>Request a client account</PageTitle>
       <Prose className="enter enter-2">
         <p>
           Online client accounts are opening soon. With an account you request to become a client,
