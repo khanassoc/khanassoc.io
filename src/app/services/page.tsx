@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageTitle, Prose, Row, StartLink } from "@/components/ui";
+import { Prose, Row, StartLink } from "@/components/ui";
 import { services } from "@/lib/firm";
 
 export const metadata: Metadata = { title: "Services" };
@@ -7,7 +7,6 @@ export const metadata: Metadata = { title: "Services" };
 export default function Services() {
   return (
     <>
-      <PageTitle>Services</PageTitle>
       <Prose>
         <p>
           Returns are $200 per filing. Planning and representation are quoted after a short

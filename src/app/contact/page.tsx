@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageTitle, Prose, StartLink } from "@/components/ui";
+import { Prose, StartLink } from "@/components/ui";
 import { firm } from "@/lib/firm";
 
 export const metadata: Metadata = { title: "Contact" };
@@ -7,7 +7,6 @@ export const metadata: Metadata = { title: "Contact" };
 export default function Contact() {
   return (
     <>
-      <PageTitle>Contact</PageTitle>
       <Prose>
         <p>
           New clients start by requesting a client account. Once we approve it, you book a

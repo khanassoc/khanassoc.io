@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageTitle, Prose } from "@/components/ui";
+import { Prose } from "@/components/ui";
 import { firm } from "@/lib/firm";
 
 export const metadata: Metadata = { title: "About" };
@@ -7,7 +7,6 @@ export const metadata: Metadata = { title: "About" };
 export default function About() {
   return (
     <>
-      <PageTitle>About</PageTitle>
       <Prose>
         <p>
           {firm.principal} has prepared returns and advised clients across Dallas–Fort Worth for

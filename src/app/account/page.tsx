@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageTitle, Prose } from "@/components/ui";
+import { Prose } from "@/components/ui";
 import { firm } from "@/lib/firm";
 
 export const metadata: Metadata = { title: "Request a client account" };
@@ -8,7 +8,6 @@ export const metadata: Metadata = { title: "Request a client account" };
 export default function Account() {
   return (
     <>
-      <PageTitle>Request a client account</PageTitle>
       <Prose>
         <p>
           Online client accounts are opening soon. With an account you request to become a client,

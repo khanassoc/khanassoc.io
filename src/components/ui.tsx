@@ -38,11 +38,6 @@ export function Shell({ children }: { children: ReactNode }) {
   );
 }
 
-// No visible page titles: the nav already shows where you are. The h1 stays for screen readers and search.
-export function PageTitle({ children }: { children: ReactNode }) {
-  return <h1 className="sr-only">{children}</h1>;
-}
-
 export function Prose({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`space-y-4 [&_a]:link ${className}`}>{children}</div>;
 }
