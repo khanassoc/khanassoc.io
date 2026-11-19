@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 /*
- * Khan Associates design tokens: warm paper, Open Sans body, DM Sans wordmark and titles, hairlines,
+ * Khan Associates design tokens, in the style of pi.website:
+ * warm paper, monospace body, serif wordmark and titles, hairlines,
  * hard offset shadows on hover, 150ms ease-out transitions.
  */
 :root {
@@ -34,8 +35,9 @@
   --color-button-hover: rgb(var(--button-hover));
   --color-highlight: rgb(var(--highlight));
 
-  --font-sans: "Open Sans Variable", "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "DM Sans Variable", "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
 }
 
 html {
@@ -47,7 +49,7 @@ html {
 body {
   background: rgb(var(--background));
   color: rgb(var(--foreground));
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: 14px;
   line-height: 20px;
   -webkit-font-smoothing: antialiased;

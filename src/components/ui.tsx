@@ -14,7 +14,7 @@ export function Shell({ children }: { children: ReactNode }) {
   return (
     <div className="max-w-[720px] px-4 py-8 sm:px-12 sm:py-10">
       <header className="mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
-        <Link href="/" className="font-display text-[30px] leading-9">
+        <Link href="/" className="font-serif text-[30px] leading-9">
           {firm.name}
         </Link>
         <NavLinks items={nav} />
@@ -39,7 +39,7 @@ export function Shell({ children }: { children: ReactNode }) {
 }
 
 export function PageTitle({ children }: { children: ReactNode }) {
-  return <h1 className="enter mb-4 font-display text-[24px] leading-8">{children}</h1>;
+  return <h1 className="enter mb-4 font-serif text-[24px] leading-8">{children}</h1>;
 }
 
 export function Prose({ children, className = "" }: { children: ReactNode; className?: string }) {
